@@ -22,8 +22,8 @@ def initialise_database():
 # The route() function of the Flask class is a decorator,
 # which tells the application which URL should call
 # the associated function.
+
 @app.route('/')
-# ‘/’ URL is bound with hello_world() function.
 def hello_world():
 	return 'Hello World'	
 
@@ -55,7 +55,7 @@ def gpt_generate_response_api(prompt):
 	start_sequence = "\nAI:"
 	restart_sequence = "\nHuman: "
 
-	openai.api_key = os.getenv('OPEN_API_KEY')
+	
 
 	response = openai.Completion.create(
 	model="text-davinci-003",
