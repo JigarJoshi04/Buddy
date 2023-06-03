@@ -67,6 +67,7 @@ class Chat(db.Model):
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	role = db.Column(db.String(255))
 	user_id = db.Column(db.String(255))
+	age_category = db.Column(db.String(255))
 	thread_id = db.Column(db.String(255))
 	content = db.Column(db.Text)
 	created_at = db.Column(db.DateTime)
@@ -74,7 +75,7 @@ class Chat(db.Model):
 
 @app.route('/dummy_record')
 def dummy_record():
-	new_chat = Chat(role='admin', user_id='123', thread_id='456', content='Sample content', created_at=datetime.now(), updated_at=datetime.now())
+	new_chat = Chat(role='admin', user_id='123', thread_id='456', age_category='YOUNG', content='Sample content', created_at=datetime.now(), updated_at=datetime.now())
 	db.session.add(new_chat)
 	db.session.commit()
 	first_row = Chat.query.first()
@@ -82,6 +83,7 @@ def dummy_record():
         'id': first_row.id,
         'role': first_row.role,
         'user_id': first_row.user_id,
+        'age_category': first_row.age_category, 
         'thread_id': first_row.thread_id,
         'content': first_row.content,
         'created_at': first_row.created_at.strftime('%Y-%m-%d %H:%M:%S'),
