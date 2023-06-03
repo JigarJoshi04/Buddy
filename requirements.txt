@@ -22,7 +22,10 @@ dnspython==2.2.1
 ecdsa==0.17.0
 filelock==3.12.0
 Flask==2.3.2
+Flask-MySQL==1.5.2
+Flask-SQLAlchemy==3.0.3
 frozenlist==1.3.3
+greenlet==2.0.2
 idna==2.10
 importlib-metadata==6.6.0
 itsdangerous==2.1.2
@@ -33,6 +36,7 @@ localstack-client==1.35
 localstack-ext==0.14.4
 MarkupSafe==2.1.3
 multidict==6.0.4
+mysql-connector-python==8.0.33
 openai==0.27.7
 ordered-set==4.1.0
 pbr==5.9.0
@@ -44,6 +48,7 @@ pyaes==1.6.1
 pyasn1==0.4.8
 pycparser==2.21
 Pygments==2.12.0
+PyMySQL==1.0.3
 python-dateutil==2.8.2
 python-dotenv==0.20.0
 python-jose==3.3.0
@@ -54,10 +59,12 @@ rsa==4.8
 s3transfer==0.6.0
 semver==2.13.0
 six==1.16.0
+SQLAlchemy==2.0.15
 stevedore==3.5.0
 tabulate==0.8.10
 tailer==0.4.1
 tqdm==4.65.0
+typing_extensions==4.6.3
 urllib3==1.26.9
 virtualenv==20.23.0
 Werkzeug==2.3.4
