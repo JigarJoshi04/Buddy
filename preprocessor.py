@@ -28,3 +28,30 @@ class PreProcessor:
             {"role": "assistant", "content": "Who's there?"},
             {"role": "user", "content": "Orange."},
         ]
+    
+    def system_content_addition_with_age(self, age_category):
+        content = "Have a never ending conversation with no monologues. Make your replies short and sweet, but have a neverending conversation. "
+        if age_category == "YOUNG":
+            content += "You are an assistant speaking with a three year old. " 
+        
+        elif age_category == "OLDER":
+            content += "You are an assistant speaking with an older person. "
+        
+        return content
+    
+    def system_content_addition_with_emotion(self, emotion):
+        content = "The person you are having conversation with is in "
+        if emotion == "GOOD":
+            content += "good mood, try to maintain his mood in the same state."
+        
+        elif emotion == "BAD":
+            content += "bad mood, try to cheer him up passively"
+        
+        elif emotion == "DEPRESSED":
+            content += "depressed mood. Try to console him and improve his mood actively."
+            
+        return content
+    
+    def system_content_addition(self, age_category, emotion):
+        return self.system_content_addition_with_age(age_category) + self.system_content_addition_with_emotion(emotion)
+        
