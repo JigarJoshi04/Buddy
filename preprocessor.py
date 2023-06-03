@@ -19,3 +19,11 @@ class PreProcessor:
         
         elif conversation_percentage + quote_percentage < r <= 100:
             return "STORY"
+    
+    def prepare_messages(self):
+        return [
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": "Knock knock."},
+            {"role": "assistant", "content": "Who's there?"},
+            {"role": "user", "content": "Orange."},
+        ]
