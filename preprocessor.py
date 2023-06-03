@@ -1,7 +1,7 @@
 import random
 
 
-class Prompt:
+class PreProcessor:
     def conversation_divider():
         story_percentage = 20
         quote_percentage = 30
