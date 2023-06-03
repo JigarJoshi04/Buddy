@@ -21,13 +21,10 @@ class PreProcessor:
             return "STORY"
     
     def prepare_messages(self, message_obj_list):
-        # TODO: Logic to parse message_obj_list to be added
-        return [
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": "Knock knock."},
-            {"role": "assistant", "content": "Who's there?"},
-            {"role": "user", "content": "Orange."},
-        ]
+        messages = []
+        for msg_obj in message_obj_list:
+            messages.append({"role": msg_obj.role, "content": msg_obj.content})
+        return messages
     
     def system_content_addition_with_age(self, age_category):
         content = "Have a never ending conversation with no monologues. Make your replies short and sweet, but have a neverending conversation. "
