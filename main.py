@@ -1,23 +1,17 @@
 # Importing flask module in the project is mandatory
 # An object of Flask class is our WSGI application.
 from flask import Flask, request, jsonify
-import openai, os
+import openai, os, json
+from datetime import datetime
 from dotenv import load_dotenv
+from flask_sqlalchemy import SQLAlchemy
 
-load_dotenv()  # Load environment variables from .env file
-from flaskext.mysql import MySQL
+# Load environment variables from .env file
+load_dotenv()
 
-# Flask constructor takes the name of
-# current module (__name__) as argument.
 app = Flask(__name__)
-mysql = MySQL()
-
-# Initialise database
-def initialise_database():
-    app.config['MYSQL_DATABASE_USER'] = 'root'
-    app.config['MYSQL_DATABASE_DB'] = 'buddy'
-    app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-    mysql.init_app(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:@localhost/buddy'
+db = SQLAlchemy(app)
 
 # The route() function of the Flask class is a decorator,
 # which tells the application which URL should call
@@ -69,9 +63,34 @@ def gpt_generate_response_api(prompt):
 	)
 	return response
 
+class Chat(db.Model):
+	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	role = db.Column(db.String(255))
+	user_id = db.Column(db.String(255))
+	thread_id = db.Column(db.String(255))
+	content = db.Column(db.Text)
+	created_at = db.Column(db.DateTime)
+	updated_at = db.Column(db.DateTime)
+
+@app.route('/dummy_record')
+def dummy_record():
+	new_chat = Chat(role='admin', user_id='123', thread_id='456', content='Sample content', created_at=datetime.now(), updated_at=datetime.now())
+	db.session.add(new_chat)
+	db.session.commit()
+	first_row = Chat.query.first()
+	data = {
+        'id': first_row.id,
+        'role': first_row.role,
+        'user_id': first_row.user_id,
+        'thread_id': first_row.thread_id,
+        'content': first_row.content,
+        'created_at': first_row.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+        'updated_at': first_row.updated_at.strftime('%Y-%m-%d %H:%M:%S')
+    }
+	return json.dumps(data)
+
 # main driver function
 if __name__ == '__main__':
-	initialise_database()
 
 	# run() method of Flask class runs the application
 	# on the local development server.
