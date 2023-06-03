@@ -5,10 +5,19 @@ import openai, os
 from dotenv import load_dotenv
 
 load_dotenv()  # Load environment variables from .env file
+from flaskext.mysql import MySQL
 
 # Flask constructor takes the name of
 # current module (__name__) as argument.
 app = Flask(__name__)
+mysql = MySQL()
+
+# Initialise database
+def initialise_database():
+    app.config['MYSQL_DATABASE_USER'] = 'root'
+    app.config['MYSQL_DATABASE_DB'] = 'buddy'
+    app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+    mysql.init_app(app)
 
 # The route() function of the Flask class is a decorator,
 # which tells the application which URL should call
@@ -59,6 +68,7 @@ def gpt_generate_response_api(prompt):
 
 # main driver function
 if __name__ == '__main__':
+	initialise_database()
 
 	# run() method of Flask class runs the application
 	# on the local development server.
