@@ -6,8 +6,8 @@ class PreProcessor:
         self.input_text = input_text
  
     def conversation_divider(self):
-        story_percentage = 20
-        quote_percentage = 30
+        story_percentage = 40
+        quote_percentage = 10
         conversation_percentage = 50
         
         r = random.randint(1,100)
@@ -19,7 +19,3 @@ class PreProcessor:
         
         elif conversation_percentage + quote_percentage < r <= 100:
             return "STORY"
-
-        
-    
-    

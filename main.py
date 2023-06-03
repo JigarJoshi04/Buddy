@@ -16,37 +16,40 @@ db = SQLAlchemy(app)
 # The route() function of the Flask class is a decorator,
 # which tells the application which URL should call
 # the associated function.
+
 @app.route('/')
-# ‘/’ URL is bound with hello_world() function.
 def hello_world():
 	return 'Hello World'	
 
-#response structure
+# API response structure
 # {
-#     "choices": [
-#         {
-#             "finish_reason": "stop",
-#             "index": 0,
-#             "logprobs": null,
-#             "text": "\n\nPython is a high-level programming language used for general-purpose programming. It is interpreted, object-oriented, and known for its simple, easy-to-learn syntax. Python is used for web development, software development, mathematics, system scripting, and media access."
-#         }
-#     ],
-#     "created": 1685788111,
-#     "id": "cmpl-7NImlrdZnImP2TZOVyg1psezLGlnk",
-#     "model": "text-davinci-003",
-#     "object": "text_completion",
-#     "usage": {
-#         "completion_tokens": 57,
-#         "prompt_tokens": 4,
-#         "total_tokens": 61
+#   "choices": [
+#     {
+#       "finish_reason": "stop",
+#       "index": 0,
+#       "message": {
+#         "content": "Orange who?",
+#         "role": "assistant"
+#       }
 #     }
+#   ],
+#   "created": 1679718435,
+#   "id": "chatcmpl-6xpmlDodtW6RwiaMaC1zhLsR8Y1D3",
+#   "model": "gpt-3.5-turbo-0301",
+#   "object": "chat.completion",
+#   "usage": {
+#     "completion_tokens": 3,
+#     "prompt_tokens": 39,
+#     "total_tokens": 42
+#   }
 # }
+
 
 def gpt_generate_response_api(prompt):
 	start_sequence = "\nAI:"
 	restart_sequence = "\nHuman: "
 
-	openai.api_key = os.getenv('OPEN_API_KEY')
+	
 
 	response = openai.Completion.create(
 	model="text-davinci-003",
