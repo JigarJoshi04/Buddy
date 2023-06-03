@@ -38,13 +38,13 @@ class PreProcessor:
     
     def system_content_addition_with_emotion(self, emotion):
         content = "The person you are having conversation with is in "
-        if emotion == "GOOD":
+        if emotion.lower() == "good":
             content += "good mood, try to maintain his mood in the same state."
         
-        elif emotion == "BAD":
+        elif emotion.lower() == "bad":
             content += "bad mood, try to cheer him up passively"
         
-        elif emotion == "DEPRESSED":
+        elif emotion.lower() == "depressed":
             content += "depressed mood. Try to console him and improve his mood actively."
             
         return content
