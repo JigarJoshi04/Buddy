@@ -2,7 +2,7 @@ import random
 
 
 class PreProcessor:
-    def __init__(self, input_text):
+    def __init__(self):
         pass
 
     def conversation_divider(self):
