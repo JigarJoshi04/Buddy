@@ -31,12 +31,16 @@ def new_message():
 	age_category = request.args.get('age_category')
 	emotion = request.args.get('emotion')
 	content = request.args.get('content')
-
-	save_chat(role, user_id, age_category, emotion, content)
+	
+	system_content = PreProcessor().system_content_addition(age_category, emotion)
+	save_chat("system", user_id, age_category, emotion, system_content) # save the system content
+	save_chat(role, user_id, age_category, emotion, content) # save the user question
 
 	message_obj_list = fetch_all_conversation_of_a_user(user_id)
-	messages = PreProcessor.prepare_messages(message_obj_list)
-	ai_response = OpenAI.chat_completion_api(messages)
+	messages = PreProcessor().prepare_messages(message_obj_list)
+	ai_response = OpenAI().chat_completion_api(messages)
+	
+	save_chat("assistant", user_id, age_category, emotion, ai_response['choices'][0]['message']['content']) # save the assistant question
 	return ai_response
 
 # API response structure
