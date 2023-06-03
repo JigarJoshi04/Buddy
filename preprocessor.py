@@ -2,7 +2,10 @@ import random
 
 
 class PreProcessor:
-    def conversation_divider():
+    def __init__(self, input_text):
+        self.input_text = input_text
+ 
+    def conversation_divider(self):
         story_percentage = 20
         quote_percentage = 30
         conversation_percentage = 50
