@@ -26,15 +26,13 @@ class Chat(db.Model):
 
 @app.route('/new_message')
 def new_message():
+	role = 'user'
 	user_id = request.args.get('user_id')
 	age_category = request.args.get('age_category')
 	emotion = request.args.get('emotion')
 	content = request.args.get('content')
 
-	new_chat = Chat(role='user', user_id=user_id, age_category=age_category, emotion=emotion,content=content, created_at=datetime.now(), updated_at=datetime.now())
-
-	db.session.add(new_chat)
-	db.session.commit()
+	save_chat(role, user_id, age_category, emotion, content)
 
 	message_obj_list = fetch_all_conversation_of_a_user(user_id)
 	messages = PreProcessor.prepare_messages(message_obj_list)
@@ -66,6 +64,12 @@ def new_message():
 
 def fetch_all_conversation_of_a_user(user_id):
 	return Chat.query.filter_by(user_id=user_id).all()
+
+def save_chat(role, user_id, age_category, emotion, content):
+	new_chat = Chat(role=role, user_id=user_id, age_category=age_category, emotion=emotion,content=content, created_at=datetime.now(), updated_at=datetime.now())
+
+	db.session.add(new_chat)
+	db.session.commit()
 
 # main driver function
 if __name__ == '__main__':
