@@ -18,7 +18,7 @@ class Chat(db.Model):
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	role = db.Column(db.String(255))
 	user_id = db.Column(db.String(255))
-	age_category = db.Column(db.Integer)
+	age_category = db.Column(db.String(255))
 	emotion = db.Column(db.String(255))
 	content = db.Column(db.Text)
 	created_at = db.Column(db.DateTime)
