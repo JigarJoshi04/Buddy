@@ -20,7 +20,8 @@ class PreProcessor:
         elif conversation_percentage + quote_percentage < r <= 100:
             return "STORY"
     
-    def prepare_messages(self):
+    def prepare_messages(self, message_obj_list):
+        # TODO: Logic to parse message_obj_list to be added
         return [
             {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", "content": "Knock knock."},
