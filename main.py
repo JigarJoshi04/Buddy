@@ -4,6 +4,8 @@ from flask import Flask, request
 from datetime import datetime
 from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
+from preprocessor import PreProcessor
+from openAI import OpenAI
 
 # Load environment variables from .env file
 load_dotenv()
@@ -34,7 +36,10 @@ def new_message():
 	db.session.add(new_chat)
 	db.session.commit()
 
-	gpt_generate_response_api(content)
+	message_obj_list = fetch_all_conversation_of_a_user(user_id)
+	messages = PreProcessor.prepare_messages(message_obj_list)
+	ai_response = OpenAI.chat_completion_api(messages)
+	return ai_response
 
 # API response structure
 # {
@@ -60,7 +65,7 @@ def new_message():
 # }
 
 def fetch_all_conversation_of_a_user(user_id):
-	Chat.query.filter_by(user_id=user_id).all()
+	return Chat.query.filter_by(user_id=user_id).all()
 
 # main driver function
 if __name__ == '__main__':
